@@ -13,3 +13,8 @@ data/
 .idea/
 .vscode/
 .DS_Store
+
+# Local secret
+.env
+chroma_db/
+md5.text

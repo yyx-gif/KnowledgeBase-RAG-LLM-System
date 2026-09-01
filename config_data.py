@@ -1,3 +1,6 @@
+"""本地适配：自动加载 .env 中的 DASHSCOPE_API_KEY，避免手动设置系统环境变量。"""
+from dotenv import load_dotenv
+load_dotenv()
 
 md5_path = "./md5.text"
 

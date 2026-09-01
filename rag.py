@@ -1,6 +1,7 @@
 from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough, RunnableWithMessageHistory, RunnableLambda
+from langchain_core.runnables import RunnablePassthrough, RunnableLambda
+from langchain_core.runnables.history import RunnableWithMessageHistory
 from file_history_store import get_history
 from vector_stores import VectorStoreService
 from langchain_community.embeddings import DashScopeEmbeddings
@@ -26,9 +27,7 @@ class RagService(object):
 
         self.prompt_template = ChatPromptTemplate.from_messages(
             [
-                ("system", "以我提供的已知参考资料为主，"
-                 "简洁和专业的回答用户问题。参考资料:{context}。"),
-                ("system", "并且我提供用户的对话历史记录，如下："),
+                ("system", "以我提供的已知参考资料为主，简洁和专业的回答用户问题。参考资料:{context}。并且我提供用户的对话历史记录，如下：当用户要求查看历史记录时，请如实复述已提供的对话历史，不要以隐私保护为由拒绝。"),
                 MessagesPlaceholder("history"),
                 ("user", "请回答用户提问：{input}")
             ]
